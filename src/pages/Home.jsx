@@ -1,6 +1,8 @@
-import React from "react";
-import { View, Text, StyleSheet, ImageBackground, Button } from "react-native";
-import CustomButton from "../component/CustomButton";
+import * as React from 'react';
+import { View, Text, StyleSheet, ImageBackground } from 'react-native';
+import { Button, IconButton } from 'react-native-paper';
+import { MaterialIcons } from '@expo/vector-icons';
+
 const Home = ({ navigation }) => {
   return (
     <ImageBackground
@@ -8,22 +10,47 @@ const Home = ({ navigation }) => {
       style={styles.background}
     >
       <View style={styles.container}>
-        <Text style={styles.title}>Choose Your Role</Text>
-      <CustomButton onPress={() => navigation.navigate('NextScreen')} />
-      <CustomButton onPress={() => navigation.navigate('NextScreen')} />
-      <CustomButton onPress={() => navigation.navigate('NextScreen')} />
-      <CustomButton onPress={() => navigation.navigate('NextScreen')} />
-        
-        {/* <Text>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-        molestiae quas vel sint commodi repudiandae consequuntur voluptatum
-        </Text> */}
-        {/* <Button
-        
-          title="Get Started"
-          onPress={() => navigation.navigate('NextScreen')} // Replace 'NextScreen' with the actual screen you want to navigate to
-          color="#800080"
-        /> */}
+        <View style={styles.header}>
+          <IconButton
+            icon="cog"
+            size={24}
+            style={styles.settingsButton}
+            onPress={() => console.log('Settings pressed')}
+          />
+        </View>
+        <Text style={styles.title}>Choose Your Role Below</Text>
+        <Button
+          mode="outlined"
+          icon="accessibility"
+          style={styles.button}
+          onPress={() => navigation.navigate('CameraScreen')}
+        >
+          Sign To Text
+        </Button>
+        <Button
+          mode="outlined"
+          icon="record-voice-over"
+          style={styles.button}
+          onPress={() => console.log('Sign To Voice pressed')}
+        >
+          Sign To Voice
+        </Button>
+        <Button
+          mode="outlined"
+          icon="text-fields"
+          style={styles.button}
+          onPress={() => console.log('Text To Sign pressed')}
+        >
+          Text To Sign
+        </Button>
+        <Button
+          mode="outlined"
+          icon="school"
+          style={styles.button}
+          onPress={() => navigation.navigate('LearnSignLanguage')}
+        >
+          Learn Sign Language
+        </Button>
       </View>
     </ImageBackground>
   );
@@ -31,24 +58,32 @@ const Home = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   background: {
-    flex: 1,
-    resizeMode: "cover",
-    width: "100%",
-    height: "100%", // Or 'stretch'
+    ...StyleSheet.absoluteFillObject,
+    resizeMode: 'cover',
   },
   container: {
     flex: 1,
-    marginTop:150,
-    // justifyContent: "center",
-    // alignItems: "center",
-    padding: 16,
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    width: '100%',
+  },
+  settingsButton: {
+    marginBottom: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 18,
+    color: '#6A1B9A',
     marginBottom: 20,
-    color: "black", // Adjust the color to ensure it is visible over the background
   },
- 
+  button: {
+    width: '80%',
+    marginBottom: 20,
+  },
 });
 
 export default Home;

@@ -1,26 +1,22 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import HomeScreen from "./src/pages/HomeScreen";
-import CameraScreen from "./src/component/CameraScreen";
+import * as React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 import Home from "./src/pages/Home";
+import Welcome from "./src/pages/Welcome";
+import CameraScreen from "./src/pages/CameraScreen";
+import LearnSignLanguage from "./src/pages/LearnSignLanguage"
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      {/* <Text>Open up App.js to start working on your app!</Text> */}
-      <HomeScreen/>
-      {/* <CameraScreen/> */}
-      {/* <Home/> */}
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Welcome">
+        <Stack.Screen name="Welcome" component={Welcome} />
+        <Stack.Screen name="Home" component={Home} />
+        {/* <Stack.Screen name="CameraScreen" component={CameraScreen} options={{headerShown: false}}/> */}
+        <Stack.Screen name="LearnSignLanguage" component={LearnSignLanguage} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
