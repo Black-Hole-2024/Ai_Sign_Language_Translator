@@ -1,91 +1,90 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
-import { Card, Title, Paragraph } from 'react-native-paper';
-import { Video } from 'expo-av';
+import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  StatusBar,
+  ScrollView,
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
-const LearnSignLanguage = () => {
+const LearnSignLanguage = ({ navigation }) => {
+  const lessons = [
+    { title: "Alphabet", icon: "alphabetical" },
+    { title: "Numbers", icon: "numeric" },
+    { title: "Common Phrases", icon: "chatbox-outline" },
+    { title: "Daily Conversations", icon: "people-outline" },
+    { title: "Advanced Topics", icon: "school-outline" },
+  ];
+
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Learn Sign Language</Text>
-
-      <Card style={styles.card}>
-        <Card.Content>
-          <Title>Alphabet</Title>
-          <Paragraph>Learn how to sign the alphabet.</Paragraph>
-        </Card.Content>
-        <Card.Cover source={{ uri: 'https://www.lifeprint.com/asl101/images-layout/alphabet-sign-language-chart.png' }} />
-        <Video
-          source={{ uri: 'https://example.com/alphabet-video.mp4' }}
-          rate={1.0}
-          volume={1.0}
-          isMuted={false}
-          resizeMode="cover"
-          shouldPlay
-          isLooping
-          style={styles.video}
+    <ScrollView style={styles.container}>
+      <StatusBar barStyle="light-content" />
+      <View style={styles.header}>
+        <Ionicons
+          name="arrow-back-outline"
+          size={32}
+          color="#00796B"
+          onPress={() => navigation.goBack()}
         />
-      </Card>
-
-      <Card style={styles.card}>
-        <Card.Content>
-          <Title>Numbers</Title>
-          <Paragraph>Learn how to sign numbers.</Paragraph>
-        </Card.Content>
-        <Card.Cover source={{ uri: 'https://example.com/numbers-image.png' }} />
-        <Video
-          source={{ uri: 'https://example.com/numbers-video.mp4' }}
-          rate={1.0}
-          volume={1.0}
-          isMuted={false}
-          resizeMode="cover"
-          shouldPlay
-          isLooping
-          style={styles.video}
-        />
-      </Card>
-
-      <Card style={styles.card}>
-        <Card.Content>
-          <Title>Common Phrases</Title>
-          <Paragraph>Learn how to sign common phrases.</Paragraph>
-        </Card.Content>
-        <Card.Cover source={{ uri: 'https://example.com/phrases-image.png' }} />
-        <Video
-          source={{ uri: 'https://example.com/phrases-video.mp4' }}
-          rate={1.0}
-          volume={1.0}
-          isMuted={false}
-          resizeMode="cover"
-          shouldPlay
-          isLooping
-          style={styles.video}
-        />
-      </Card>
-
-      {/* Add more learning sections as needed */}
+        <Text style={styles.headerTitle}>Learn Sign Language</Text>
+      </View>
+      <View style={styles.main}>
+        {lessons.map((lesson, index) => (
+          <TouchableOpacity
+            key={index}
+            style={styles.lessonCard}
+            onPress={() => navigation.navigate("Lesson", { title: lesson.title })}
+          >
+            <Ionicons name={lesson.icon} size={40} color="white" />
+            <Text style={styles.lessonTitle}>{lesson.title}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
-    padding: 16,
-    backgroundColor: '#f5f5f5',
-    alignItems: 'center',
+    flex: 1,
+    backgroundColor: "#F0F4F8",
+    paddingHorizontal: 20,
+    paddingTop: 50,
   },
-  title: {
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 30,
+  },
+  headerTitle: {
+    color: "#00796B",
     fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
+    fontWeight: "bold",
   },
-  card: {
-    width: '100%',
-    marginBottom: 20,
+  main: {
+    flex: 1,
   },
-  video: {
-    width: '100%',
-    height: 200,
+  lessonCard: {
+    backgroundColor: "#4DB6AC",
+    borderRadius: 15,
+    padding: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 20,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    elevation: 5,
+  },
+  lessonTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "white",
+    marginLeft: 20,
   },
 });
 
