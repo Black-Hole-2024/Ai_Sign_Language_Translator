@@ -1,90 +1,116 @@
-import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  StatusBar,
-  ScrollView,
-} from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import React from 'react';
+import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity, ScrollView, Image } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const LearnSignLanguage = ({ navigation }) => {
-  const lessons = [
-    { title: "Alphabet", icon: "alphabetical" },
-    { title: "Numbers", icon: "numeric" },
-    { title: "Common Phrases", icon: "chatbox-outline" },
-    { title: "Daily Conversations", icon: "people-outline" },
-    { title: "Advanced Topics", icon: "school-outline" },
-  ];
-
   return (
-    <ScrollView style={styles.container}>
-      <StatusBar barStyle="light-content" />
-      <View style={styles.header}>
-        <Ionicons
-          name="arrow-back-outline"
-          size={32}
-          color="#00796B"
-          onPress={() => navigation.goBack()}
-        />
-        <Text style={styles.headerTitle}>Learn Sign Language</Text>
-      </View>
-      <View style={styles.main}>
-        {lessons.map((lesson, index) => (
-          <TouchableOpacity
-            key={index}
-            style={styles.lessonCard}
-            onPress={() => navigation.navigate("Lesson", { title: lesson.title })}
-          >
-            <Ionicons name={lesson.icon} size={40} color="white" />
-            <Text style={styles.lessonTitle}>{lesson.title}</Text>
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>Learn Sign Language</Text>
+          <Text style={styles.headerSubtitle}>Start your journey to mastering sign language</Text>
+        </View>
+        <View style={styles.content}>
+          <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Basics')}>
+            <Image source={{ uri: 'https://via.placeholder.com/100x100' }} style={styles.cardImage} />
+            <View style={styles.cardContent}>
+              <Text style={styles.cardTitle}>Basics</Text>
+              <Text style={styles.cardSubtitle}>Learn the basics of sign language</Text>
+            </View>
           </TouchableOpacity>
-        ))}
+          <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Advanced')}>
+            <Image source={{ uri: 'https://via.placeholder.com/100x100' }} style={styles.cardImage} />
+            <View style={styles.cardContent}>
+              <Text style={styles.cardTitle}>Advanced</Text>
+              <Text style={styles.cardSubtitle}>Enhance your sign language skills</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Quizzes')}>
+            <Image source={{ uri: 'https://via.placeholder.com/100x100' }} style={styles.cardImage} />
+            <View style={styles.cardContent}>
+              <Text style={styles.cardTitle}>Quizzes</Text>
+              <Text style={styles.cardSubtitle}>Test your knowledge with quizzes</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+      <View style={styles.navigation}>
+        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+          <Icon name="home-outline" size={30} color="#fff" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Search')}>
+          <Icon name="search-outline" size={30} color="#fff" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Library')}>
+          <Icon name="book-outline" size={30} color="#fff" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+          <Icon name="person-outline" size={30} color="#fff" />
+        </TouchableOpacity>
       </View>
-    </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F0F4F8",
-    paddingHorizontal: 20,
-    paddingTop: 50,
+    backgroundColor: '#121212',
   },
   header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 30,
+    padding: 20,
+    backgroundColor: '#333333',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    alignItems: 'center',
   },
   headerTitle: {
-    color: "#00796B",
     fontSize: 24,
-    fontWeight: "bold",
+    fontWeight: 'bold',
+    color: '#fff',
+    textAlign: 'center',
   },
-  main: {
+  headerSubtitle: {
+    fontSize: 16,
+    color: '#ccc',
+    textAlign: 'center',
+    marginTop: 10,
+  },
+  content: {
+    padding: 20,
+  },
+  card: {
+    backgroundColor: '#333333',
+    padding: 20,
+    borderRadius: 10,
+    marginVertical: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  cardImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 10,
+    marginRight: 20,
+  },
+  cardContent: {
     flex: 1,
   },
-  lessonCard: {
-    backgroundColor: "#4DB6AC",
-    borderRadius: 15,
-    padding: 20,
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 20,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-    elevation: 5,
-  },
-  lessonTitle: {
+  cardTitle: {
     fontSize: 18,
-    fontWeight: "600",
-    color: "white",
-    marginLeft: 20,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  cardSubtitle: {
+    fontSize: 14,
+    color: '#ccc',
+    marginTop: 5,
+  },
+  navigation: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    backgroundColor: '#1f1f1f',
+    paddingVertical: 10,
   },
 });
 

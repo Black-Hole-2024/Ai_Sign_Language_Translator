@@ -1,192 +1,121 @@
-import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Switch,
-  Modal,
-  FlatList,
-  ScrollView,
-} from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Modal, TouchableWithoutFeedback } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-const languages = [
-  { label: "English", value: "en" },
-  { label: "Spanish", value: "es" },
-  { label: "French", value: "fr" },
-  { label: "German", value: "de" },
-];
+const SettingsPage = () => {
+  const [showLanguages, setShowLanguages] = useState(false); // State to track if languages are expanded
 
-const SettingsPage = ({ navigation }) => {
-  const [selectedLanguage, setSelectedLanguage] = useState("en");
-  const [isVoiceEnabled, setIsVoiceEnabled] = useState(false);
-  const [isPickerVisible, setPickerVisible] = useState(false);
-
-  const renderLanguageItem = ({ item }) => (
-    <TouchableOpacity
-      style={styles.languageItem}
-      onPress={() => {
-        setSelectedLanguage(item.value);
-        setPickerVisible(false);
-      }}
-    >
-      <Text style={styles.languageText}>{item.label}</Text>
-    </TouchableOpacity>
-  );
+  const toggleLanguages = () => {
+    setShowLanguages(!showLanguages);
+  };
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.header}>
-        <Ionicons
-          name="arrow-back-outline"
-          size={32}
-          color="#00796B"
-          onPress={() => navigation.goBack()}
-        />
-        <Text style={styles.headerTitle}>Settings</Text>
+        <Text style={styles.headerText}>Settings</Text>
       </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Language Selection</Text>
-        <TouchableOpacity
-          style={styles.pickerContainer}
-          onPress={() => setPickerVisible(true)}
-        >
-          <Text style={styles.pickerText}>
-            {languages.find((lang) => lang.value === selectedLanguage).label}
-          </Text>
+      <View style={styles.settingsList}>
+        <TouchableOpacity style={styles.settingItem}>
+          <Icon name="notifications-outline" size={24} color="#5DADE2" style={styles.settingIcon} />
+          <Text style={styles.settingText}>Notifications</Text>
         </TouchableOpacity>
-        <Modal
-          visible={isPickerVisible}
-          transparent={true}
-          animationType="fade"
-        >
-          <TouchableOpacity
-            style={styles.modalContainer}
-            onPress={() => setPickerVisible(false)}
-          >
-            <View style={styles.modalContent}>
-              <FlatList
-                data={languages}
-                keyExtractor={(item) => item.value}
-                renderItem={renderLanguageItem}
-              />
-              
-            </View>
+        <TouchableOpacity style={styles.settingItem} onPress={toggleLanguages}>
+          <Icon name="language-outline" size={24} color="#FFC300" style={styles.settingIcon} />
+          <Text style={styles.settingText}>Language</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.settingItem}>
+          <Icon name="volume-high-outline" size={24} color="#58D68D" style={styles.settingIcon} />
+          <Text style={styles.settingText}>Sound</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.settingItem}>
+          <Icon name="information-circle-outline" size={24} color="#EC7063" style={styles.settingIcon} />
+          <Text style={styles.settingText}>About</Text>
+        </TouchableOpacity>
+      </View>
+      {/* Language Modal */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={showLanguages}
+        onRequestClose={() => {
+          toggleLanguages(); // Close modal on Android back button press
+        }}
+      >
+        <TouchableWithoutFeedback onPress={toggleLanguages}>
+          <View style={styles.modalOverlay} />
+        </TouchableWithoutFeedback>
+        <View style={styles.modalContent}>
+          <TouchableOpacity style={styles.languageItem}>
+            <Text style={styles.languageText}>English</Text>
           </TouchableOpacity>
-        </Modal>
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Voice Integration</Text>
-        <View style={styles.switchContainer}>
-          <Text style={styles.switchLabel}>
-            {isVoiceEnabled ? "Enabled" : "Disabled"}
-          </Text>
-          <Switch
-            value={isVoiceEnabled}
-            onValueChange={(value) => setIsVoiceEnabled(value)}
-          />
+          <TouchableOpacity style={styles.languageItem}>
+            <Text style={styles.languageText}>Spanish</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.languageItem}>
+            <Text style={styles.languageText}>French</Text>
+          </TouchableOpacity>
+          {/* Add more languages as needed */}
         </View>
-      </View>
-      <View style={styles.section}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("PrivacySettings")}
-        >
-          <Text style={styles.sectionTitle}>Privacy Settings</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.section}>
-        <TouchableOpacity onPress={() => navigation.navigate("Feedback")}>
-          <Text style={styles.sectionTitle}>Feedback</Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
+      </Modal>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F0F4F8",
-    paddingHorizontal: 20,
-    paddingTop: 50,
+    backgroundColor: '#121212',
   },
   header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 30,
+    backgroundColor: '#1f1f1f',
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#333',
+    alignItems: 'center',
   },
-  headerTitle: {
-    color: "#00796B",
-    fontSize: 24,
-    fontWeight: "bold",
+  headerText: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#fff',
   },
-  section: {
-    backgroundColor: "#fff",
-    borderRadius: 15,
-    padding: 20,
-    marginBottom: 20,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-    elevation: 5,
+  settingsList: {
+    marginTop: 20,
+    paddingHorizontal: 20,
   },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#4DB6AC",
-    marginBottom: 10,
+  settingItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#333',
   },
-  pickerContainer: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 10,
-    padding: 15,
+  settingIcon: {
+    marginRight: 20,
   },
-  pickerText: {
-    fontSize: 16,
-    color: "#555",
+  settingText: {
+    fontSize: 20,
+    color: '#fff',
   },
-  modalContainer: {
+  modalOverlay: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContent: {
-    width: 300,
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    padding: 20,
+    backgroundColor: '#2c2c2c',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    paddingVertical: 20,
+    paddingHorizontal: 40,
   },
   languageItem: {
-    padding: 15,
+    paddingVertical: 10,
   },
   languageText: {
     fontSize: 18,
-    color: "#333",
-  },
-  cancelButton: {
-    marginTop: 10,
-    padding: 10,
-    backgroundColor: "#E57373",
-    borderRadius: 10,
-    alignItems: "center",
-  },
-  cancelButtonText: {
-    fontSize: 16,
-    color: "#fff",
-  },
-  switchContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  switchLabel: {
-    fontSize: 16,
-    color: "#555",
+    color: '#fff',
   },
 });
 

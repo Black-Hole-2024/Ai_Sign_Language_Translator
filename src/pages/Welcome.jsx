@@ -1,59 +1,83 @@
-import * as React from 'react';
-import { View, Text, StyleSheet, ImageBackground } from 'react-native';
-import { Button } from 'react-native-paper';
+import React from "react";
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ImageBackground,
+} from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
 
 const Welcome = ({ navigation }) => {
   return (
-    <ImageBackground
-      source={require("../../assets/image/HomeScreenBg.png")}
-      style={styles.background}
-    >
-      <View style={styles.container}>
-        <Text style={styles.headerText}>Welcome to Sign Translator</Text>
-        <Text style={styles.subText}>
-          Effortlessly translate between sign language and text or speech.
-        </Text>
-        <Button
-          mode="contained"
-          style={styles.button}
-          onPress={() => navigation.navigate('Home')}
-        >
-          Get Started
-        </Button>
-      </View>
-    </ImageBackground>
+    <SafeAreaView style={styles.container}>
+      <ImageBackground
+        source={require("../../assets/image/welcom.jpg")}
+        style={styles.backgroundImage}
+      >
+        <View style={styles.overlay}>
+          <Text style={styles.title}>Welcome to Sign Language Translator</Text>
+          <Text style={styles.subtitle}>Bridging communication gaps</Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate("Home")}
+          >
+            {/* <Icon name="md-arrow-forward" size={24} color="#fff" style={styles.buttonIcon} /> */}
+            <Text style={styles.buttonText}>Get Started</Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  background: {
-    ...StyleSheet.absoluteFillObject,
-    resizeMode: 'cover',
-  },
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#121212",
+  },
+  backgroundImage: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  overlay: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    width: "100%",
     padding: 20,
   },
-  headerText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#6A1B9A',
+  title: {
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "#fff",
+    textAlign: "center",
     marginBottom: 20,
   },
-  subText: {
-    fontSize: 16,
-    color: '#333',
-    textAlign: 'center',
+  subtitle: {
+    fontSize: 18,
+    color: "#ccc",
+    textAlign: "center",
     marginBottom: 40,
   },
   button: {
-    width: '80%',
-    paddingVertical: 10,
-    borderRadius: 25,
+    backgroundColor: "#333333",
+    padding: 15,
+    borderRadius: 10,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  buttonIcon: {
+    marginRight: 10,
+  },
+  buttonText: {
+    fontSize: 18,
+    color: "#fff",
+    fontWeight: "bold",
   },
 });
 
 export default Welcome;
-

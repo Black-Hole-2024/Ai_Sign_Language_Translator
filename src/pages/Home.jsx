@@ -1,162 +1,170 @@
 import React from "react";
 import {
-  View,
-  Text,
+  SafeAreaView,
   StyleSheet,
+  Text,
+  View,
   TouchableOpacity,
-  StatusBar,
   ScrollView,
+  ImageBackground,
 } from "react-native";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import Icon from "react-native-vector-icons/Ionicons";
 
-const HomePage = ({ navigation }) => {
+const Home = ({ navigation }) => {
   return (
-    <ScrollView style={styles.container}>
-      <StatusBar barStyle="light-content" />
-      <View style={styles.header}>
-        <Ionicons
-          name="person-circle-outline"
-          size={32}
-          color="#00796B"
-          onPress={() => navigation.navigate("Profile")}
-        />
-        <Text style={styles.headerTitle}>Home</Text>
-        <Ionicons
-          name="settings-outline"
-          size={32}
-          color="#00796B"
-          onPress={() => navigation.navigate("SettingsPage")}
-        />
-      </View>
-      <View style={styles.welcome}>
-        <Text style={styles.welcomeText}>Welcome to Sign Translator!</Text>
-        <Text style={styles.introText}>
-          Bridging the gap between the hearing and deaf communities.
-        </Text>
-      </View>
-      <View style={styles.main}>
-        <View style={styles.row}>
-          <TouchableOpacity
-            style={[styles.card, styles.cardSignToText]}
-            onPress={() => navigation.navigate("SignToText")}
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <View style={styles.header}>
+          <ImageBackground
+            source={require("../../assets/image/banner.jpg")}
+            style={styles.headerImage}
           >
-            <MaterialIcons name="text-fields" size={50} color="white" />
-            <Text style={styles.cardText}>Sign to Text</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.card, styles.cardSignToVoice]}
-            onPress={() => navigation.navigate("SignToVoice")}
-          >
-            <Ionicons name="mic-outline" size={50} color="white" />
-            <Text style={styles.cardText}>Sign to Voice</Text>
-          </TouchableOpacity>
+            <View style={styles.headerOverlay}>
+              <Text style={styles.headerTitle}>Sign Language Translator</Text>
+              <Text style={styles.headerSubtitle}>
+                Bridging communication gaps
+              </Text>
+            </View>
+          </ImageBackground>
         </View>
-        <View style={styles.row}>
-          <TouchableOpacity
-            style={[styles.card, styles.cardTextToSign]}
-            onPress={() => navigation.navigate("TextToSign")}
-          >
-            <Ionicons name="language-outline" size={50} color="white" />
-            <Text style={styles.cardText}>Text to Sign</Text>
+        <View style={styles.buttonsContainer}>
+          <TouchableOpacity style={styles.button}>
+            <Icon
+              name="hand-left-outline"
+              size={30}
+              color="#fff"
+              style={styles.buttonIcon}
+            />
+            <Text style={styles.buttonText}>Sign to Text</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <Icon
+              name="mic-outline"
+              size={30}
+              color="#fff"
+              style={styles.buttonIcon}
+            />
+            <Text style={styles.buttonText}>Sign to Voice</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <Icon
+              name="text-outline"
+              size={30}
+              color="#fff"
+              style={styles.buttonIcon}
+            />
+            <Text style={styles.buttonText}>Text to Sign</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <Icon
+              name="volume-high-outline"
+              size={30}
+              color="#fff"
+              style={styles.buttonIcon}
+            />
+            <Text style={styles.buttonText}>Voice to Sign</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.card, styles.cardLearnSignLanguage]}
+            style={styles.learnButton}
             onPress={() => navigation.navigate("LearnSignLanguage")}
           >
-            <Ionicons name="school-outline" size={50} color="white" />
-            <Text style={styles.cardText}>Learn Sign Language</Text>
+            <Icon
+              name="school-outline"
+              size={30}
+              color="#fff"
+              style={styles.buttonIcon}
+            />
+            <Text style={styles.buttonText}>Learn Sign Language</Text>
           </TouchableOpacity>
         </View>
-       
+      </ScrollView>
+      <View style={styles.navigation}>
+        <TouchableOpacity>
+          <Icon name="home-outline" size={30} color="#fff" />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Icon name="search-outline" size={30} color="#fff" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("SettingsPage")}>
+          <Icon name="settings-outline" size={30} color="#fff" />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Icon name="person-outline" size={30} color="#fff" />
+        </TouchableOpacity>
       </View>
-    </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F0F4F8",
-    paddingHorizontal: 20,
-    paddingTop: 50,
+    backgroundColor: "#121212",
   },
   header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    overflow: "hidden",
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+  },
+  headerImage: {
+    width: "100%",
+    height: 200,
+    justifyContent: "center",
     alignItems: "center",
-    marginBottom: 30,
+  },
+  headerOverlay: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    width: "100%",
+    padding: 20,
   },
   headerTitle: {
-    color: "#00796B",
     fontSize: 24,
     fontWeight: "bold",
+    color: "#fff",
+    textAlign: "center",
   },
-  welcome: {
-    marginBottom: 50,
-    alignItems: "center",
-  },
-  welcomeText: {
-    fontSize: 22,
-    fontWeight: "bold",
-    color: "#4DB6AC",
-  },
-  introText: {
+  headerSubtitle: {
     fontSize: 16,
-    color: "#555",
+    color: "#ccc",
     textAlign: "center",
     marginTop: 10,
   },
-  main: {
-    flex: 1,
-    justifyContent: "center",
+  buttonsContainer: {
+    padding: 20,
   },
-  row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 20,
-  },
-  extraContent: {
-    marginTop: 20,
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  card: {
-    flex: 1,
-    borderRadius: 15,
-    paddingVertical: 20,
+  button: {
+    backgroundColor: "#333333",
+    padding: 20,
+    borderRadius: 10,
+    marginVertical: 10,
     alignItems: "center",
-    justifyContent: "center",
-    marginHorizontal: 10,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-    elevation: 5,
+    flexDirection: "row",
   },
-  cardSignToText: {
-    backgroundColor: "#4DB6AC",
+  learnButton: {
+    backgroundColor: "#444444",
+    padding: 20,
+    borderRadius: 10,
+    marginVertical: 10,
+    alignItems: "center",
+    flexDirection: "row",
   },
-  cardSignToVoice: {
-    backgroundColor: "#9370DB",
+  buttonIcon: {
+    marginRight: 20,
   },
-  cardTextToSign: {
-    backgroundColor: "#26C6DA",
-  },
-  cardLearnSignLanguage: {
-    backgroundColor: "#8A2BE2",
-  },
-  cardDailySign: {
-    backgroundColor: "#BA68C8",
-  },
-  cardAbout: {
-    backgroundColor: "#DDA0DD",
-  },
-  cardText: {
-    color: "white",
+  buttonText: {
     fontSize: 18,
-    fontWeight: "600",
-    marginTop: 10,
+    color: "#fff",
+    fontWeight: "bold",
+  },
+  navigation: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    backgroundColor: "#1f1f1f",
+    paddingVertical: 10,
   },
 });
 
-export default HomePage;
+export default Home;
