@@ -35,8 +35,11 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.text1}>Sign language translator</Text>
       <CameraView style={styles.camera} facing={facing} ref={cameraRef}>
-        <View style={styles.buttonContainer}>
+        
+      </CameraView>
+      <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
             <Text style={styles.text}>Flip Camera</Text>
           </TouchableOpacity>
@@ -44,7 +47,6 @@ export default function App() {
             <Text style={styles.text}>Take Picture</Text>
           </TouchableOpacity>
         </View>
-      </CameraView>
       <View style={styles.textContainer}>
         <TextInput
           style={styles.textArea}
@@ -61,32 +63,39 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    backgroundColor:'black',
   },
   camera: {
-    flex: 1, // Reduced flex value for the camera
-    height: 300,
+    flex: 3, // Reduced flex value for the camera
+    height: 200,
     width: 300,
     marginLeft: 50,
     marginTop: 20,
+    
   },
   buttonContainer: {
-    flex: 1,
+    flex: 0.5,
     flexDirection: 'row',
-    backgroundColor: 'transparent',
     margin: 64,
   },
   button: {
     flex: 1,
     alignSelf: 'flex-end',
     alignItems: 'center',
+    borderColor: '#545454', // or any color you prefer
+    borderWidth: 5, // define the width of the border
+    borderRadius: 10,
   },
   textArea: {
-    height: 300,
-    width: 300,
+    height: 100,
+    width: 400,
     borderColor: '#ccc',
     borderWidth: 1,
     padding: 10,
     textAlignVertical: 'top',
+    backgroundColor:'white',
+    borderRadius:10,
+    marginLeft:10,
   },
   textContainer: {
     flex: 1, // Added flex value for the text area
@@ -97,5 +106,17 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
     color: 'white',
+    backgroundColor:"#545454", // define the radius of the border's corners
+    justifyContent: 'center',
+    alignItems: 'center',
   },
+  text1:{
+    paddingLeft:100,
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: 'white',
+    backgroundColor:"#545454", // define the radius of the border's corners
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 });
