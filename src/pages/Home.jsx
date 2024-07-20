@@ -35,7 +35,12 @@ const Home = ({ navigation }) => {
               color="#fff"
               style={styles.buttonIcon}
             />
-            <Text style={styles.buttonText}>Sign to Text</Text>
+            <Text
+              style={styles.buttonText}
+              onPress={() => navigation.navigate("CameraScreen")}
+            >
+              Sign to Text
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}>
             <Icon
@@ -82,13 +87,8 @@ const Home = ({ navigation }) => {
         <TouchableOpacity>
           <Icon name="home-outline" size={30} color="#fff" />
         </TouchableOpacity>
-        <TouchableOpacity>
-          <Icon name="search-outline" size={30} color="#fff" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("SettingsPage")}>
-          <Icon name="settings-outline" size={30} color="#fff" />
-        </TouchableOpacity>
-        <TouchableOpacity>
+       
+        <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
           <Icon name="person-outline" size={30} color="#fff" />
         </TouchableOpacity>
       </View>

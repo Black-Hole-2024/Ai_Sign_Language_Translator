@@ -6,7 +6,7 @@ import Welcome from "./src/pages/Welcome";
 import CameraScreen from "./src/pages/CameraScreen";
 import LearnSignLanguage from "./src/pages/LearnSignLanguage"
 import SettingsPage from "./src/pages/SettingsPage";
-
+import Profile from "./src/pages/Profile"
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -18,6 +18,8 @@ export default function App() {
         <Stack.Screen name="CameraScreen" component={CameraScreen} options={{headerShown: false}}/>
         <Stack.Screen name="LearnSignLanguage" component={LearnSignLanguage} />
         <Stack.Screen name="SettingsPage" component={SettingsPage} />
+        <Stack.Screen name="Profile" component={Profile} />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );

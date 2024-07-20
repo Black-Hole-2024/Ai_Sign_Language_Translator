@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity, ScrollView, Image } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const LearnSignLanguage = ({ navigation }) => {
@@ -11,24 +11,31 @@ const LearnSignLanguage = ({ navigation }) => {
           <Text style={styles.headerSubtitle}>Start your journey to mastering sign language</Text>
         </View>
         <View style={styles.content}>
-          <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Basics')}>
-            <Image source={{ uri: 'https://via.placeholder.com/100x100' }} style={styles.cardImage} />
+          <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Alphabet')}>
+            <Icon name="text-outline" size={50} color="#fff" style={styles.cardIcon} />
             <View style={styles.cardContent}>
-              <Text style={styles.cardTitle}>Basics</Text>
-              <Text style={styles.cardSubtitle}>Learn the basics of sign language</Text>
+              <Text style={styles.cardTitle}>Alphabet</Text>
+              <Text style={styles.cardSubtitle}>Learn the sign language alphabet</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Advanced')}>
-            <Image source={{ uri: 'https://via.placeholder.com/100x100' }} style={styles.cardImage} />
+          <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Numbers')}>
+            <Icon name="calculator-outline" size={50} color="#fff" style={styles.cardIcon} />
             <View style={styles.cardContent}>
-              <Text style={styles.cardTitle}>Advanced</Text>
-              <Text style={styles.cardSubtitle}>Enhance your sign language skills</Text>
+              <Text style={styles.cardTitle}>Numbers</Text>
+              <Text style={styles.cardSubtitle}>Learn to sign numbers</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Quizzes')}>
-            <Image source={{ uri: 'https://via.placeholder.com/100x100' }} style={styles.cardImage} />
+          <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Words')}>
+            <Icon name="book-outline" size={50} color="#fff" style={styles.cardIcon} />
             <View style={styles.cardContent}>
-              <Text style={styles.cardTitle}>Quizzes</Text>
+              <Text style={styles.cardTitle}>Words</Text>
+              <Text style={styles.cardSubtitle}>Learn common words in sign language</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Quiz')}>
+            <Icon name="help-circle-outline" size={50} color="#fff" style={styles.cardIcon} />
+            <View style={styles.cardContent}>
+              <Text style={styles.cardTitle}>Quiz</Text>
               <Text style={styles.cardSubtitle}>Test your knowledge with quizzes</Text>
             </View>
           </TouchableOpacity>
@@ -38,12 +45,7 @@ const LearnSignLanguage = ({ navigation }) => {
         <TouchableOpacity onPress={() => navigation.navigate('Home')}>
           <Icon name="home-outline" size={30} color="#fff" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Search')}>
-          <Icon name="search-outline" size={30} color="#fff" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Library')}>
-          <Icon name="book-outline" size={30} color="#fff" />
-        </TouchableOpacity>
+
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
           <Icon name="person-outline" size={30} color="#fff" />
         </TouchableOpacity>
@@ -87,10 +89,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  cardImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 10,
+  cardIcon: {
     marginRight: 20,
   },
   cardContent: {

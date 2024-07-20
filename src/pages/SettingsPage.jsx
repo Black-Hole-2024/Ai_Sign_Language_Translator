@@ -15,10 +15,6 @@ const SettingsPage = () => {
         <Text style={styles.headerText}>Settings</Text>
       </View>
       <View style={styles.settingsList}>
-        <TouchableOpacity style={styles.settingItem}>
-          <Icon name="notifications-outline" size={24} color="#5DADE2" style={styles.settingIcon} />
-          <Text style={styles.settingText}>Notifications</Text>
-        </TouchableOpacity>
         <TouchableOpacity style={styles.settingItem} onPress={toggleLanguages}>
           <Icon name="language-outline" size={24} color="#FFC300" style={styles.settingIcon} />
           <Text style={styles.settingText}>Language</Text>
@@ -32,6 +28,7 @@ const SettingsPage = () => {
           <Text style={styles.settingText}>About</Text>
         </TouchableOpacity>
       </View>
+      
       {/* Language Modal */}
       <Modal
         animationType="slide"
@@ -57,6 +54,7 @@ const SettingsPage = () => {
           {/* Add more languages as needed */}
         </View>
       </Modal>
+      
     </View>
   );
 };
