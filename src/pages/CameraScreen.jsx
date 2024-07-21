@@ -1,16 +1,9 @@
-import { CameraView, useCameraPermissions } from "expo-camera";
-import { useState, useRef } from "react";
-import {
-  Button,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { CameraView, useCameraPermissions } from 'expo-camera';
+import { useState, useRef } from 'react';
+import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View, ImageBackground } from 'react-native';
 
 export default function App() {
-  const [facing, setFacing] = useState("back");
+  const [facing, setFacing] = useState('back');
   const [permission, requestPermission] = useCameraPermissions();
   const cameraRef = useRef(null);
 
@@ -23,16 +16,14 @@ export default function App() {
     // Camera permissions are not granted yet.
     return (
       <View style={styles.container}>
-        <Text style={{ textAlign: "center" }}>
-          We need your permission to show the camera
-        </Text>
+        <Text style={{ textAlign: 'center' }}>We need your permission to show the camera</Text>
         <Button onPress={requestPermission} title="grant permission" />
       </View>
     );
   }
 
   function toggleCameraFacing() {
-    setFacing((current) => (current === "back" ? "front" : "back"));
+    setFacing(current => (current === 'back' ? 'front' : 'back'));
   }
 
   async function takePicture() {
@@ -43,8 +34,11 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <CameraView style={styles.camera} facing={facing} ref={cameraRef}>
+    <ImageBackground source={require('../../assets/image/welcom.jpg')} style={styles.background}>
+      <View style={styles.container}>
+        <Text style={styles.text1}>Sign language translator</Text>
+        <CameraView style={styles.camera} facing={facing} ref={cameraRef}>
+        </CameraView>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
             <Text style={styles.text}>Flip Camera</Text>
@@ -53,58 +47,88 @@ export default function App() {
             <Text style={styles.text}>Take Picture</Text>
           </TouchableOpacity>
         </View>
-      </CameraView>
-      <View style={styles.textContainer}>
-        <TextInput
-          style={styles.textArea}
-          multiline={true}
-          numberOfLines={10}
-          placeholder="Type here..."
-        />
+        <View style={styles.textContainer}>
+          <TextInput
+            style={styles.textArea}
+            multiline={true}
+            numberOfLines={10}
+            placeholder="Type here..."
+          />
+        </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+  },
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Adds a semi-transparent overlay
+    padding: 20,
   },
   camera: {
-    flex: 1, // Reduced flex value for the camera
-    height: 300,
-    width: 300,
-    marginLeft: 50,
-    marginTop: 20,
+    flex: 3,
+    width: '100%',
+    aspectRatio: 3 / 4,
+    marginBottom: 20,
+    borderRadius: 10,
+    overflow: 'hidden',
   },
   buttonContainer: {
-    flex: 1,
-    flexDirection: "row",
-    backgroundColor: "transparent",
-    margin: 64,
+    flex: 0.5,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    width: '100%',
+    marginTop: 20,
   },
   button: {
     flex: 1,
-    alignSelf: "flex-end",
-    alignItems: "center",
+    marginHorizontal: 10,
+    paddingVertical: 10,
+    alignItems: 'center',
   },
   textArea: {
-    height: 300,
-    width: 300,
-    borderColor: "#ccc",
+    width: '100%',
+    height: 150,
+    borderColor: '#ccc',
     borderWidth: 1,
     padding: 10,
-    textAlignVertical: "top",
+    textAlignVertical: 'top',
+    backgroundColor: 'white',
+    borderRadius: 10,
+    marginTop: 20,
   },
   textContainer: {
-    flex: 1, // Added flex value for the text area
-    justifyContent: "center",
-    alignItems: "center",
+    flex: 1,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   text: {
     fontSize: 15,
-    fontWeight: "bold",
-    color: "white",
+    fontWeight: 'bold',
+    color: 'white',
+    backgroundColor: '#545454',
+    padding: 10,
+    borderRadius: 10,
+  },
+  text1: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'white',
+    textAlign: 'center',
+    backgroundColor: '#545454',
+    padding: 10,
+    borderRadius: 10,
+    marginBottom: 20,
+    width: '100%',
   },
 });

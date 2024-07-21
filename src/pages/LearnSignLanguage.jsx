@@ -11,14 +11,14 @@ const LearnSignLanguage = ({ navigation }) => {
           <Text style={styles.headerSubtitle}>Start your journey to mastering sign language</Text>
         </View>
         <View style={styles.content}>
-          <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Alphabet')}>
+          <TouchableOpacity style={styles.card} onPress={() => navigation.navigate("SignLanguageAlphabet")}>
             <Icon name="text-outline" size={50} color="#fff" style={styles.cardIcon} />
-            <View style={styles.cardContent}>
+            <View style={styles.cardContent}   >
               <Text style={styles.cardTitle}>Alphabet</Text>
               <Text style={styles.cardSubtitle}>Learn the sign language alphabet</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Numbers')}>
+          <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('SignNumbers')}>
             <Icon name="calculator-outline" size={50} color="#fff" style={styles.cardIcon} />
             <View style={styles.cardContent}>
               <Text style={styles.cardTitle}>Numbers</Text>
@@ -32,7 +32,7 @@ const LearnSignLanguage = ({ navigation }) => {
               <Text style={styles.cardSubtitle}>Learn common words in sign language</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Quiz')}>
+          <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('QuizScreen')}>
             <Icon name="help-circle-outline" size={50} color="#fff" style={styles.cardIcon} />
             <View style={styles.cardContent}>
               <Text style={styles.cardTitle}>Quiz</Text>

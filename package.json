@@ -15,6 +15,9 @@
     "@react-native-picker/picker": "^2.7.7",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/stack": "^6.4.0",
+    "@reduxjs/toolkit": "^2.2.6",
+    "2.4.2": "^1.0.0",
+    "axios": "^1.7.2",
     "expo": "~51.0.18",
     "expo-av": "^14.0.6",
     "expo-camera": "~15.0.13",
@@ -35,7 +38,8 @@
     "react-native-web": "~0.19.10",
     "react-redux": "^9.1.2",
     "redux": "^5.0.1",
-    "redux-thunk": "^3.1.0"
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.4.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
