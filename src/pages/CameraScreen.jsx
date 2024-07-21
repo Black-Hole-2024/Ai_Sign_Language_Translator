@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 0.5,
+    flex: 0.5,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
@@ -94,6 +95,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     paddingVertical: 10,
     alignItems: 'center',
+    borderColor: '#545454', // or any color you prefer
+    borderWidth: 5, // define the width of the border
+    borderRadius: 10,
   },
   textArea: {
     width: '100%',
