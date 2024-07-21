@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -10,12 +10,11 @@ import {
   ActivityIndicator
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { VerficationRequest } from "../action/authAction"; 
+import { VerficationRequest } from "../action/authAction";
 
 const Verification = ({ navigation }) => {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
-  const { user, error } = useSelector((state) => state.auth);
+  const { VerficationUser, VerficationError, verficationLoading } = useSelector((state) => state.auth);
 
   const [formData, setFormData] = useState({
     username: "",
@@ -23,17 +22,18 @@ const Verification = ({ navigation }) => {
   });
 
   const handleChange = (name, value) => {
-    setFormData({ ...formData, [name]: value });
+    setFormData({ ...formData, [name]: value.trim() });
   };
 
   const handleVerification = async () => {
-    setLoading(true);
-    await dispatch(VerficationRequest(formData));
-    setLoading(false);
-    if (user) {
+    dispatch(VerficationRequest(formData));
+  };
+
+  useEffect(() => {
+    if (VerficationUser && !VerficationError) {
       navigation.navigate("Home");
     }
-  };
+  }, [VerficationUser, VerficationError]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -59,20 +59,20 @@ const Verification = ({ navigation }) => {
               onChangeText={(text) => handleChange("verification_code", text)}
               secureTextEntry
             />
-            {loading ? (
+            {verficationLoading ? (
               <ActivityIndicator size="large" color="#00BFFF" />
             ) : (
               <TouchableOpacity
                 style={styles.button}
                 onPress={handleVerification}
               >
-                <Text style={styles.buttonText}>Sign In</Text>
+                <Text style={styles.buttonText}>Verify</Text>
               </TouchableOpacity>
             )}
             <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
               <Text style={styles.linkText}>Back</Text>
             </TouchableOpacity>
-            {error && <Text style={styles.errorText}>{error}</Text>}
+            {VerficationError && <Text style={styles.errorText}>{VerficationError}</Text>}
           </View>
         </View>
       </ImageBackground>

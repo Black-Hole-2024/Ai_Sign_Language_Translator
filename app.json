@@ -21,11 +21,16 @@
       },
       "permissions": [
         "CAMERA"
-      ]
+      ],
+      "package": "com.samritas.client"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "568de99e-0a83-4a8e-958b-b257a20d6386"
+      }
     }
   }
 }
- 

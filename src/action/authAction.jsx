@@ -4,65 +4,115 @@ export const SIGNUP_REQUEST = 'SIGNUP_REQUEST';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
 
-
 export const VERFICATION_REQUEST = 'VERFICATION_REQUEST';
 export const VERFICATION_SUCCESS = 'VERFICATION_SUCCESS';
 export const VERFICATION_FAILURE = 'VERFICATION_FAILURE';
 
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+
 const signUpApiUrl = 'https://back-end-njci.onrender.com/signup';
-const VerficationApiUrl = ' https://back-end-njci.onrender.com/verify';
+const verficationApiUrl = 'https://back-end-njci.onrender.com/verify';
+const loginApiUrl = 'https://back-end-njci.onrender.com/login';
 
 export const signupRequest = (userData) => {
     return async (dispatch) => {
         dispatch({ type: SIGNUP_REQUEST });
 
         try {
-            // Make the POST request with axios
+            console.log('Sign Up Request Data:', userData);
+
             const response = await axios.post(signUpApiUrl, userData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
 
-            // Log the response
             console.log('Response:', response);
 
-            // Dispatch success action with response data
             dispatch({ type: SIGNUP_SUCCESS, payload: response.data });
         } catch (error) {
-            // Log the error
-            console.error('Error:', error);
-
-            // Dispatch failure action with error message
-            dispatch({ type: SIGNUP_FAILURE, payload: error.message });
+            if (error.response) {
+                // console.error('Error Response Data:', error.response.data);
+                dispatch({ type: SIGNUP_FAILURE, payload: error.response.data.message });
+            } else {
+                // console.error('Error:', error.message);
+                dispatch({ type: SIGNUP_FAILURE, payload: error.message });
+            }
         }
     };
 };
 
-
 export const VerficationRequest = (userData) => {
     return async (dispatch) => {
-        dispatch({ type:VERFICATION_REQUEST });
+        dispatch({ type: VERFICATION_REQUEST });
 
         try {
-            // Make the POST request with axios
-            const response = await axios.post(VerficationApiUrl, userData, {
+            console.log('Verification Request Data:', userData);
+
+            const response = await axios.post(verficationApiUrl, userData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
 
-            // Log the response
             console.log('Response:', response);
 
-            // Dispatch success action with response data
             dispatch({ type: VERFICATION_SUCCESS, payload: response.data });
         } catch (error) {
-            // Log the error
-            console.error('Error:', error);
+            let errorMessage = 'An error occurred.';
+    
+            if (error.response && error.response.data && error.response.data.error) {
+                console.error('Error Response Data:', error.response.data);
+                if (error.response.data.error === 'Invalid verification code or username') {
+                    errorMessage = 'Invalid verification code or username';
+                }
+            } else {
+                console.error('Error:', error.message);
+                errorMessage = error.message;
+            }
+    
+            dispatch({ type: VERFICATION_FAILURE, payload: errorMessage });
+        }
+    };
+};
 
-            // Dispatch failure action with error message
-            dispatch({ type: VERFICATION_FAILURE, payload: error.message });
+export const loginRequest = (userData) => {
+    return async (dispatch) => {
+        dispatch({ type: LOGIN_REQUEST });
+
+        try {
+            console.log('Login Request Data:', userData);
+
+            const response = await axios.post(loginApiUrl, userData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            console.log('Response:', response);
+
+            // Store the token in local storage
+            if (response.data.token) {
+                localStorage.setItem('authToken', response.data.token);
+            }
+
+            dispatch({ type: LOGIN_SUCCESS, payload: response.data });
+        } catch (error) {
+            let errorMessage = 'An error occurred.';
+    
+            if (error.response && error.response.data && error.response.data.error) {
+                console.error('Error Response Data:', error.response.data);
+                if (error.response.data.error === 'Invalid username or password') {
+                    errorMessage = 'Invalid username or password';
+                }
+            } else {
+                console.error('Error:', error.message);
+                errorMessage = error.message;
+            }
+    
+            dispatch({ type: LOGIN_FAILURE, payload: errorMessage });
         }
     };
 };
